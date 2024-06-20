@@ -12,9 +12,9 @@ if (isset($produto['criarProduto'])) {
     $salvar->CriarProduto($produto);
 
     if ($salvar->getResultado()) {
-        header("Location: " . HOME . "painel/index.php?sucesso=true");
+        header("Location: " . HOME . "/painel/index.php?sucesso=true");
     } else {
-        header("Location: " . HOME . "painel/index.php?erro=true");
+        header("Location: " . HOME . "/painel/index.php?erro=true");
     }
 }
 

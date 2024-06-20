@@ -128,11 +128,6 @@ class Uploads {
         return $this->Error;
     }
 
-    /**
-     * ***********MAYKONSILVEIRA.COM.BR*************
-     * ********** PRIVATE METHODS *************
-     * ************MAYKON***SILVEIRA************
-     */
     
     //Verifica e cria os diretórios com base em tipo de arquivo, ano e mês!
     private function CheckFolder($Folder) {

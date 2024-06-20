@@ -38,12 +38,12 @@ class Excluir extends Conexao {
                 
     }
 
-    /** @var Retorna um Resultadoado de cadastro ou não :: por Maykon Silveira - MaykonSilveira.com.br */
+    /** @var Retorna um Resultadoado de cadastro ou não */
     public function getResultado() {
         return $this->Resultado;
     }
 
-    /** @var FAZ A CONTAGEM DOS CAMPOS DA TABLEA :: por Maykon Silveira - MaykonSilveira.com.br */
+    /** @var FAZ A CONTAGEM DOS CAMPOS DA TABELA */
     public function getContaLinhas() {
         return $this->Excluir->rowCount();
     }
@@ -58,10 +58,9 @@ class Excluir extends Conexao {
     /**
      * 
      * ********** PRIVATE METHODS *************
-     * ************MAYKON***SILVEIRA************
      */
 
-    /** @var Faz a coneção com banco de dados por Maykon Silveira */
+    /** @var Faz a coneção com banco de dados */
     private function Canectar() {
 
         $this->Conexao = parent::getCanectar();
@@ -69,13 +68,13 @@ class Excluir extends Conexao {
   
     }
 
-    /** @var gera a syntax do mysql automaticamente por Maykon Silveira */
+    /** @var gera a syntax do mysql automaticamente */
     private function getSyntax() {
         $this->Excluir = "DELETE FROM {$this->Banco} {$this->SQL}";
         
     }
 
-    /** @var Executa o PDO  por Maykon Silveira */
+    /** @var Executa o PDO*/
     private function Execute() {
         $this->Canectar();
 
