@@ -15,12 +15,21 @@ require ('./sheep_core/config.php');
 
 <body>
 
+    <?php
+
+    $cart = new Ler();
+    $cart->Leitura('carrinho');
+
+    ?>
+
+
+
     <div class="header">
         <p class="logo">Developer Girl Store</p>
         <div class="cart">
             <i class="fa fa-shopping-cart"></i>
             <p>
-                0
+                <?= $cart->getContaLinhas() > 0 ? $cart->getContaLinhas() : 0 ?>
             </p>
         </div>
     </div>
@@ -28,74 +37,36 @@ require ('./sheep_core/config.php');
     <div class="container">
 
         <div class="linha-produto">
+            <?php
+            $ler = new Ler();
+            $ler->Leitura('produtos', 'ORDER BY data DESC');
+            if ($ler->getResultado()) {
+                foreach ($ler->getResultado() as $produto) {
+                    $produto = (object) $produto;
+                    ?>
 
-            <form action="filtros/criar.php" method="post">
-                <div class="corpo-produto">
-                    <div class="img-produto">
-                        <img src="assets/img/teclado.jpg" alt="" class="produtoMiniatura">
-                    </div>
-                    <div class="titulo">
-                        <p>Teclado</p>
-                        <h2>R$100,00</h2>
-                        <input type="hidden" name="id_produto" value="">
-                        <input type="hidden" name="valor" value="">
-                        <button onclick="" type="submit" class="button" name="addCarrinho">Adicionar ao
-                            carrinho</button>
-                    </div>
+                    <form action="filtros/criar.php" method="post">
+                        <div class="corpo-produto">
+                            <div class="img-produto">
+                                <img src="<?= HOME ?>/uploads/<?= $produto->capa ?>" alt="<?= $produto->nome ?>"
+                                    class="produtoMiniatura">
+                            </div>
+                            <div class="titulo">
+                                <p><?= $produto->nome ?></p>
+                                <h2>R$ <?= $produto->valor ?></h2>
+                                <input type="hidden" name="id_produto" value="<?= $produto->id ?>">
+                                <input type="hidden" name="valor" value="<?= $produto->valor ?>">
+                                <button onclick="" type="submit" class="button" name="addCarrinho">Adicionar ao
+                                    carrinho</button>
+                            </div>
 
-                </div>
-            </form>
+                        </div>
+                    </form>
+                    <?php
+                }
+            }
+            ?>
 
-
-            <form action="filtros/criar.php" method="post">
-                <div class="corpo-produto">
-                    <div class="img-produto">
-                        <img src="assets/img/teclado1..jpg" alt="" class="produtoMiniatura">
-                    </div>
-                    <div class="titulo">
-                        <p>Teclado</p>
-                        <h2>R$100,00</h2>
-                        <input type="hidden" name="id_produto" value="">
-                        <input type="hidden" name="valor" value="">
-                        <button type="submit" class="button" name="addCarrinho">Adicionar ao carrinho</button>
-                    </div>
-
-                </div>
-            </form>
-
-
-            <form action="filtros/criar.php" method="post">
-                <div class="corpo-produto">
-                    <div class="img-produto">
-                        <img src="assets/img/teclado2.jpg" alt="" class="produtoMiniatura">
-                    </div>
-                    <div class="titulo">
-                        <p>Teclado</p>
-                        <h2>R$100,00</h2>
-                        <input type="hidden" name="id_produto" value="">
-                        <input type="hidden" name="valor" value="">
-                        <button type="submit" class="button" name="addCarrinho">Adicionar ao carrinho</button>
-                    </div>
-
-                </div>
-            </form>
-
-
-            <form action="filtros/criar.php" method="post">
-                <div class="corpo-produto">
-                    <div class="img-produto">
-                        <img src="assets/img/teclado3.jpg" alt="" class="produtoMiniatura">
-                    </div>
-                    <div class="titulo">
-                        <p>Teclado</p>
-                        <h2>R$100,00</h2>
-                        <input type="hidden" name="id_produto" value="">
-                        <input type="hidden" name="valor" value="">
-                        <button type="submit" class="button" name="addCarrinho">Adicionar ao carrinho</button>
-                    </div>
-
-                </div>
-            </form>
         </div>
 
 
@@ -103,31 +74,48 @@ require ('./sheep_core/config.php');
             <div class="topo-do-carrinho">
                 <p>Meu carrinho</p>
             </div>
-            <div class="item-carrinho">
-                <div class="linha-da-imagem">
-                    <img src="assets/img/teclado.jpg" alt="" class="img-carrinho">
+
+            <?php
+
+            if ($cart->getContaLinhas() > 0) {
+                foreach ($ler->getResultado() as $item) {
+
+                    $ler = new Ler();
+                    $ler->Leitura('produtos', "WHERE id = :id", "id= {$item['id_produto']}", );
+                    if ($ler->getResultado()) {
+                        foreach ($ler->getResultado() as $produto) {
+                            $produto = (object) $produto;
+
+                            ?>
+                            <div class="item-carrinho">
+                                <div class="linha-da-imagem">
+                                    <img src="<?= HOME ?>/uploads/<?= $produto->capa ?>" alt="" class="img-carrinho">
+                                </div>
+                                <p><?= $produto->nome ?></p>
+                                <h2>R$<?= $produto->valor ?></h2>
+                                <form action="filtros/excluir.php">
+                                    <input type="hidden" name="id-produto" value="<?= $produto->id ?>">
+                                    <button type="submit" style="border: none; cursor: pointer;">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <?php
+                        }
+                    }
+                }
+            } else {
+                ?>
+                <div class="carrinho-vazio">
+                    <p>Seu carrinho está vazio!</p>
                 </div>
-                <p>Teclado</p>
-                <h2>R$100,00</h2>
-                <form action="filtros/excluir.php">
-                    <input type="hidden" name="id-produto" value="">
-                    <button type="submit" style="border: none; cursor: pointer;">
-                        <i class="fa fa-trash-o"></i>
-                    </button>
-                </form>
-            </div>
+                <?php
+            }
+            ?>
 
-            <div class="carrinho-vazio">
-                <p>Seu carrinho está vazio!</p>
-            </div>
 
-            <div class="rodape">
-                <h3>Total</h3>
-                <h2>R$100,00</h2>
-            </div>
         </div>
-
-    </div>
 
 </body>
 
