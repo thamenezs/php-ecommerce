@@ -78,10 +78,9 @@ require ('./sheep_core/config.php');
             <?php
 
             if ($cart->getContaLinhas() > 0) {
-                foreach ($ler->getResultado() as $item) {
-
+                foreach ($cart->getResultado() as $item) {
                     $ler = new Ler();
-                    $ler->Leitura('produtos', "WHERE id = :id", "id= {$item['id_produto']}", );
+                    $ler->Leitura('produtos', "WHERE id = :id ", "id={$item['id_produto']}");
                     if ($ler->getResultado()) {
                         foreach ($ler->getResultado() as $produto) {
                             $produto = (object) $produto;
