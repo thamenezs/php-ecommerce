@@ -17,6 +17,16 @@ class Carrinho{
         }
 
     } 
+    public function RemoveCarrinho(array $data){
+        $this ->Data = $data;
+        if(in_array('', $this->Data)){
+            $this -> Resultado = false;
+        }else{
+            $this->Banco();
+            $this->Criar();
+        }
+
+    } 
 
     public function getResultado(){
         return $this ->Resultado;
@@ -39,6 +49,15 @@ class Carrinho{
         $criar = new Criar();
         $criar->Criacao(self::BD, $this->Data);
         if ($criar->getResultado()) {
+            $this->Resultado = true;
+        } else {
+            $this->Resultado = false;
+        }
+    }
+    private function Remove(){
+        $remover = new Excluir();
+        $remover->Remover(self::BD, $this->Data);
+        if ($remover->getResultado()) {
             $this->Resultado = true;
         } else {
             $this->Resultado = false;

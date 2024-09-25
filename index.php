@@ -8,7 +8,7 @@ require ('./sheep_core/config.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThaiStore</title>
+    <title>ThaiStore - Developer Girl</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -56,8 +56,7 @@ require ('./sheep_core/config.php');
                                 <h2>R$ <?= $produto->valor ?></h2>
                                 <input type="hidden" name="id_produto" value="<?= $produto->id ?>">
                                 <input type="hidden" name="valor" value="<?= $produto->valor ?>">
-                                <button onclick="" type="submit" class="button" name="addCarrinho">Adicionar ao
-                                    carrinho</button>
+                                <button onclick="" type="submit" class="button" name="addCarrinho">Também quero!</button>
                             </div>
 
                         </div>
@@ -72,7 +71,7 @@ require ('./sheep_core/config.php');
 
         <div class="barra-lateral">
             <div class="topo-do-carrinho">
-                <p>Meu carrinho</p>
+                <p>Lista de Desejos</p>
             </div>
 
             <?php
@@ -105,6 +104,9 @@ require ('./sheep_core/config.php');
                     }
                 }
             } else {
+                ?>
+                <?php 
+                $ler = new Ler
                 ?>
                 <div class="carrinho-vazio">
                     <p>Seu carrinho está vazio!</p>
